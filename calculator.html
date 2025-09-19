@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f2f2f9;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .wrap {
+      max-width: 430px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px rgba(30,144,255,0.16);
+      text-align: center;
+    }
+    .level { font-weight: bold; letter-spacing: 2px;}
+    .task { font-weight: bold; color: #0f0f10;}
+    .num { background: #3366cc; color: #fff; padding: 0 14px; border-radius: 4px;}
+    h2 { margin-bottom: 8px; }
+    h3 { margin: 6px 0 12px; }
+    h3 a { color: #3366cc; text-decoration: underline; font-weight: bold;}
+    p { font-size: 15px; margin: 0 0 22px 0;}
+
+    .calculator {
+      background: #0e0e0e;
+      padding: 24px 16px 20px 16px;
+      border-radius: 16px;
+      width: 260px;
+      margin: 0 auto;
+      box-shadow: 0 2px 13px rgba(0,0,0,0.13);
+    }
+    .display {
+      background: #fff;
+      color: #222;
+      height: 45px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 32px;
+      text-align: right;
+      padding: 10px 14px 0 0;
+      margin-bottom: 18px;
+      box-sizing: border-box;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      height: 44px;
+      background: #fafafa;
+      color: #222;
+      border: none;
+      border-radius: 9px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button.operator { background: #ffca28; }
+    button.equals { background: #43a047; color: #fff; }
+    button.clear { background: #e53935; color: #fff; }
+    button:active { background: #e0e0e0;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h3><a href="#">CALCULATOR</a></h3>
+    <div class="calculator">
+      <div id="display" class="display">0</div>
+      <div class="buttons">
+        <button onclick="press('7')">7</button>
+        <button onclick="press('8')">8</button>
+        <button onclick="press('9')">9</button>
+        <button onclick="press('+')" class="operator">+</button>
+        <button onclick="press('4')">4</button>
+        <button onclick="press('5')">5</button>
+        <button onclick="press('6')">6</button>
+        <button onclick="press('-')" class="operator">-</button>
+        <button onclick="press('1')">1</button>
+        <button onclick="press('2')">2</button>
+        <button onclick="press('3')">3</button>
+        <!-- Show × but send * -->
+        <button onclick="press('*')" class="operator">×</button>
+        <button onclick="press('0')">0</button>
+        <button onclick="clearDisplay()" class="clear">C</button>
+        <button onclick="calculate()" class="equals">=</button>
+        <button onclick="press('/')" class="operator">/</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    let currentInput = '';
+    let display = document.getElementById('display');
+    
+    function press(num) {
+      if (currentInput === '' && ['+', '-', '*', '/'].includes(num)) return;
+      currentInput += num;
+      display.textContent = currentInput;
+    }
+    
+    function clearDisplay() {
+      currentInput = '';
+      display.textContent = '0';
+    }
+    
+    function calculate() {
+      try {
+        let result = eval(currentInput);
+        display.textContent = result;
+        currentInput = result.toString();
+      } catch {
+        display.textContent = 'Error';
+        currentInput = '';
+      }
+    }
+  </script>
+</body>
+</html>
